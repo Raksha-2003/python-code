@@ -1,7 +1,8 @@
 import http.server
 import socketserver
+import os
 
-PORT = 8000
+PORT = int(os.environ.get("PORT", 8000))  # use Azure-assigned port or default to 8000
 
 class SimpleHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -12,6 +13,3 @@ class SimpleHandler(http.server.SimpleHTTPRequestHandler):
 with socketserver.TCPServer(("", PORT), SimpleHandler) as httpd:
     print(f"Serving at port {PORT}")
     httpd.serve_forever()
-
-
-    
